@@ -53,3 +53,43 @@ contract Square is Shape {
 }
 ```
 > When using Remix, assigning height and width is needed before deployment.
+
+
+#### Example-3
+Owner & Purchase
+```solidity
+// SPDX-License-Identifier: GPL-3.0
+
+pragma solidity >=0.7.0 <0.9.0;
+
+import "@openzeppelin/contracts/utils/Strings.sol";
+
+contract Owner {
+    address owner;
+    constructor() {owner = msg.sender;}
+
+    modifier onlyOwner {
+        require(msg.sender == owner);
+        _;
+    }
+}
+
+contract Purchase is Owner {
+    mapping(address => bool) purchasers;
+    uint price;
+    constructor(uint _price) {
+        price = _price;
+    }
+
+    function purchase() public payable {
+        purchasers[msg.sender] = true;
+    }
+
+    function setPrice(uint _price) public onlyOwner {
+        price = _price;
+    }
+    function getPrice() public view returns(uint) {
+        return price;
+    }
+}
+```
