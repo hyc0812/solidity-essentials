@@ -52,3 +52,4 @@ contract Square is Shape {
     }
 }
 ```
+> When using Remix, assigning height and width is needed before deployment.
