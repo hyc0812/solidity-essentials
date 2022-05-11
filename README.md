@@ -93,3 +93,34 @@ contract Purchase is Owner {
     }
 }
 ```
+#### Example-4
+Simple Storage for unsigned integer and string data type
+
+```solidity
+// SPDX-License-Identifier:GPL-3.0
+
+pragma solidity >=0.4.16 < 0.9.0;
+
+contract SimpleStorage {
+    uint storedData;
+
+    function setData(uint x) public {
+        storedData = x;
+    }
+    function getData() public view returns (uint) {
+        return storedData;
+    }
+}
+
+
+contract StringStorage {
+    string storedString;
+
+    function setString(string memory x) public {
+        storedString = x;
+    }
+    function getString() public view returns (string memory) {
+        return storedString;
+    }
+}
+```
