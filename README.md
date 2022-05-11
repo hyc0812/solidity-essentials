@@ -124,3 +124,31 @@ contract StringStorage {
     }
 }
 ```
+
+#### Example-5
+
+Struct example
+
+```solidity
+ // SPDX-License-Identifier: GPL-3.0
+
+pragma solidity >=0.7.0 <0.9.0; 
+
+contract Storage1{
+    
+    struct People {
+        string name;
+        uint256 favoriteNumber;
+
+    }
+
+    People[] public people;
+    mapping(string => uint256) public nameToFavoriteNumber;
+
+    function appPerson(string memory _name, uint256 _favoriteNumber) public {
+        people.push(People(_name, _favoriteNumber));
+        nameToFavoriteNumber[_name] = _favoriteNumber;
+    }
+
+}
+```
