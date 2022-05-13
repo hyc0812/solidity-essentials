@@ -499,3 +499,46 @@ contract Increment3 {
     }
 }
 ```
+#### example-12
+
+```solidity
+// SPDX-License-Identifier: GPL-3.0
+
+pragma solidity >=0.7.0 <0.9.0;
+
+contract msgExaminer {
+    address  owner;
+    address  miner;
+
+    constructor() {
+         owner = msg.sender;
+         miner = 0x8945A1288dc78A6D8952a92C77aEe6730B414778;
+    }
+
+    function getMsgData() public pure returns (bytes calldata) {
+        return msg.data;
+    }
+    function getMsgGas() public view returns (uint) {
+        return gasleft();
+    }
+    function getMsgVal() public payable returns (uint) {
+        return msg.value;
+    }
+
+    	function txGasprice() public view returns (uint) 	// "gasprice" is the amount of gas the sender was *willing* to pay. 50000000 for me. (geth default)
+    {											     	
+    	return tx.gasprice;
+    }
+    
+    function txOrigin() public view returns (address) 	// returns sender of the transaction
+    {											   		// What if there is a chain of calls? I think it returns the first sender, whoever provided the gas.
+    	return tx.origin;
+    }
+
+    function minerAddress() public view returns (address) // get CURRENT block miner's address, 
+	{														     // not necessarily the address of the miner when this block was born
+		return block.coinbase;
+	}
+
+}
+```
