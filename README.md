@@ -1,5 +1,5 @@
-# solidity-essentials
-Solidity programming
+# solidity-essentials. Baby Steps...
+
 
 #### Example-1
 
