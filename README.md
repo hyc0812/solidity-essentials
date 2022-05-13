@@ -415,4 +415,44 @@ contract Increment {
 }
 ```
 
+#### Example-10
 
+> increment2: increment (integer) number can be defined by user
+
+```solidity
+// SPDX-License-Identifier: GPL-3.0
+
+pragma solidity >=0.7.0 <0.9.0;
+
+contract Increment2 {
+    address owner;
+    int iteration;
+    string whatHappened;
+
+    constructor() {
+        owner = msg.sender;
+        iteration = 0;
+        whatHappened = "constructor executed";
+    }
+
+    function increment(int howmuch) public {
+        if (howmuch == 0) {
+            iteration += 1;
+            whatHappened = "howmuch was 0. Incremented by 1.";
+        }
+        else {
+            iteration += howmuch;
+            whatHappened = "howmuch was not 0. Incremented by its value";
+        }
+        return;
+    }
+
+    function getWhatHappened() public view returns (string memory) {
+        return whatHappened;
+    }
+
+    function getIteration() public view returns (int) {
+        return iteration;
+    }
+}
+```
