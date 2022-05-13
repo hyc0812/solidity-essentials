@@ -376,3 +376,43 @@ contract basicInfoGetter {
     
 }
 ```
+
+
+#### Example-9 
+> increment: transactions will be made when clicking 'increment'; result will be shown when clicking 'getIterration'.
+```solidity
+// SPDX-License-Identifier: GPL-3.0
+
+pragma solidity >=0.7.0 <0.9.0;
+contract Increment {
+    address creator;
+    uint iteration;
+
+    constructor() {
+        creator = msg.sender;
+        iteration = 0;
+    }
+
+    function increment() public {
+        iteration += 1;
+    }
+
+    function getIteration() public view returns (uint) {
+        return iteration;
+    }
+
+    function ContractBal() public view returns (uint) {
+        return address(this).balance / 1e18;
+    }
+
+    function getBalance() public view returns (uint) {
+        return creator.balance / 1e18;
+    }
+
+    function valueToContract() public payable returns (uint) {
+        return msg.value;
+    }
+}
+```
+
+
