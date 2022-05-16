@@ -789,3 +789,48 @@ contract Variables {
     uint public MY_UINT = 124;
 }
 ```
+
+
+#### Example-19
+> How Modifier works in the contract.
+
+```solidity
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.13;
+
+contract FunctionModifier {
+    bool public paused;
+    uint public counter;
+
+    constructor () {
+        paused = true;
+    }
+
+    function setPause() external {
+        paused = !paused;
+    }
+
+    modifier whenNotPaused() {
+        require(paused == false, "Paused!");
+        _;
+    }
+
+    modifier cap(uint _x) {
+        require(_x < 100, "x >= 100");
+        _;
+    } 
+
+    function inc() external whenNotPaused {
+        counter += 1;
+    }
+
+    function dec() external whenNotPaused {
+        counter -= 1;
+    }
+
+    // Two modifiers are added, and pay attention to the second one with parameter in side
+    function incBy(uint _x) external whenNotPaused cap(_x){
+        counter += _x;
+    }
+}
+```
