@@ -910,3 +910,45 @@ contract FunctionOutputs {
     }
 }
 ```
+
+#### Example-22
+
+> Array basics
+
+```solidity
+// SPDX-License-Identifier:MIT
+
+pragma solidity ^0.8.13;
+
+// Array - dynamic or fixed size
+// Initialization
+// Insert (push) , get, update, delete, pop, length
+// creating array in memory
+// returning array from function
+
+contract Array {
+    uint[] public nums = [1,3,5];
+    uint[3] public numsFixed = [4,5,6]; // you cannot push() to a fixed sized array.
+
+    function examples(uint _x) external {
+        nums.push(_x);
+        uint x = nums[1];
+        nums[2] = x;
+        delete nums[0];  // replace the number that indicated with 0, 
+        nums.pop(); // the last element of the array will be deleted.
+
+        // create an array in memory
+        // Array in memory has to be fixed sized
+        // so a.pop() or a.push() cannot be used.
+        uint[] memory a = new uint[] (5);
+
+        // assign value to element
+        a[1] = 23;
+    }
+
+    // not recommended because a lot of gas will be charged.
+    function returnArray() external view returns (uint[] memory) {
+        return nums;
+    }
+}
+```
