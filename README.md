@@ -834,3 +834,43 @@ contract FunctionModifier {
     }
 }
 ```
+
+#### Example-20
+
+> Simple Access control management / ownership management
+```solidity
+// SPDX-License-Identifier:MIT
+
+pragma solidity ^0.8.13;
+
+// In this example we will use state variables, global variables, function modifier, function and error handling
+// we will claim the ownership of the contract, so that the access control of functions have been made.
+
+contract ownable {
+    address public owner;
+
+    constructor () {
+        owner = msg.sender;
+    }
+
+    // access control 
+    modifier onlyOwner() {
+        require(msg.sender == owner, "not owner");
+        _;
+    }
+
+    // set ownership of the contract
+    function setOwner(address _newOwner) external onlyOwner {
+        require(_newOwner != address(0), "invalid address");
+        owner = _newOwner;
+    }
+
+    // only the current owner of the contract can call this function
+    function onlyOwnerCanCall() external onlyOwner {
+    }
+
+    // every one can have access to this function
+    function anyOneCanCall() external {
+    }
+}
+```
