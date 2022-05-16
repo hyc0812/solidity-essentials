@@ -768,3 +768,23 @@ contract DefaultVals {
     bytes32 public b32; // default : 0x0000000000000000000000000000000000000000000000000000000000000000
 }
 
+#### Example-18
+
+> Constant state variables with called gas value
+```solidity
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.13;
+
+// spend less gas when deploy the contract using constant state variables
+// 21442 gas
+contract Constants {
+    // define a constant state variable
+    address public constant MY_ADDRESS = 0x0000000000000000000000000000000000000100;
+    uint public constant MY_UINT = 124;
+}
+// 23575 gas
+contract Variables {
+    address public MY_ADDRESS = 0x0000000000000000000000000000000000000100;
+    uint public MY_UINT = 124;
+}
+```
