@@ -1163,3 +1163,31 @@ contract TodoList {
 
 }
 ```
+
+#### Example-26
+> How to use event and emit built-in function
+
+```solidity
+// SPDX-License-Identifier:MIT
+
+pragma solidity ^0.8.14;
+
+// 
+contract Event {
+    event Log(string message, uint val);
+    event IndexedLog(address indexed sender, uint val);
+
+    // this is a transactional function rather than a read only 
+    // not 'pure' or 'view'
+    function example() external {
+        emit Log("foo", 1244); // we are storing new data on blockchain
+        emit IndexedLog(msg.sender, 7890);
+    }
+
+    event Message(address indexed _from, address indexed _to, string message);
+
+    function sendMessage(address _to, string calldata message) external {
+        emit Message(msg.sender, _to, message);
+    }
+}
+```
