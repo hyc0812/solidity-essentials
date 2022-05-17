@@ -1191,3 +1191,48 @@ contract Event {
     }
 }
 ```
+
+#### Example-27
+
+> About inheritance
+
+```solidity
+// SPDX-License-Identifier:MIT
+
+pragma solidity ^0.8.14;
+
+// Inheritance
+// use 'virtual' keyword to declear that the function can be inherited
+contract A {
+    function foo() public pure virtual returns (string memory) {
+        return "A";
+    }
+    function bar() public pure virtual returns (string memory) {
+        return "A";
+    }
+    function baz() public pure virtual returns (string memory) {
+        return "Haven't appeared in B";
+    }
+    // more code here
+
+}
+
+// use'override' to declear that this function is inherited from father and is overrided.
+contract B is A {
+    function foo() public pure override returns (string memory) {
+        return "B";
+    }
+    // this function can be inherited by sons
+    function bar() public pure virtual override returns (string memory) {
+        return "B";
+    }
+    // more code here
+    // Here function baz() is inherited automatically...
+}
+
+contract C is B {
+    function bar() public pure override returns (string memory) {
+        return "C";
+    }
+}
+```
