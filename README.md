@@ -1103,3 +1103,63 @@ contract Enum {
     }
 }
 ```
+
+#### Example-26
+
+> Insert, update, read form array of struct
+
+```solidity
+// SPDX-License-Identifier:MIT
+
+pragma solidity ^0.8.14;
+
+// Insert, update, read form array of struct
+contract TodoList {
+    struct Todo {
+        string text;
+        bool completed;
+    }
+    Todo[] public todos;
+    function create(string calldata _text) external {
+        todos.push(Todo({text:_text, completed:false}));
+    }
+    function updateText(uint _index, string calldata _text) external {
+        // 35138 gas
+        // every time first access the index of array, then get the struct and then assign the new value;
+        todos[_index].text = _text;
+        // todos[_index].text = _text;
+        // todos[_index].text = _text;
+        // todos[_index].text = _text;
+
+        //34578 gas
+        // access the index of array only once, then get the struct and then assign the new value four times
+        // Todo storage todo = todos[_index];
+        // todo.text = _text;
+        // todo.text = _text;
+        // todo.text = _text;
+        // todo.text = _text;
+    }
+
+    // the least gas willbe used with this way using 'storage'
+    function get(uint _index) external view returns (string memory, bool) {
+        Todo storage todo = todos[_index];              //'storage': 29395 gas; while 'memory': 29452
+        return (todo.text, todo.completed);
+    }
+
+    // gas used: 29547
+    // function get(uint _index) external view returns (string memory, bool) {
+    //   return (todos[_index].text, todos[_index].completed);  
+    // }
+
+    function toggleCompleted(uint _index) external {
+
+        //53013 gas
+        // Todo storage todo = todos[_index];
+        // todo.completed = !todo.completed;
+
+        //53218 gas
+        todos[_index].completed = !todos[_index].completed;
+    }
+
+}
+```
