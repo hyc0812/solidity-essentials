@@ -1236,3 +1236,43 @@ contract C is B {
     }
 }
 ```
+#### Example-28
+> Call parent contructors and the execution order
+
+
+```solidity
+// SPDX-License-Identifier:MIT
+pragma solidity ^0.8.14;
+
+// 2 ways to call parent constructors
+// Order of initialization
+contract S {
+    string public name;
+    constructor(string memory _name) {
+        name = _name;
+    }
+}
+contract T {
+    string public text;
+    constructor(string memory _text) {
+        text = _text;
+    }
+}
+// way 1 initialize using static input 
+contract U is S("s"), T("t") {}
+
+// way 2 initialize dynamically
+// execution order will be S T V
+// determined by the order that written behind 'is'
+contract V is S, T {
+    constructor(string memory _name, string memory _text) S(_name) T(_text){
+        // name = _name;
+        // text = _text;
+    }
+}
+// one is static input and another is dynamic input
+contract W is S("s"), T {
+    constructor(string memory _text) T(_text) {
+    }
+}
+```
