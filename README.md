@@ -1276,3 +1276,18 @@ contract W is S("s"), T {
     }
 }
 ```
+
+#### Example-29
+> function and state variable's visibility
+
+
+```solidity
+// SPDX-License-Identifier:MIT
+pragma solidity ^0.8.14;
+
+// function and state variable's visibility
+// private - only inside contract
+// internal - only inside contract and child contracts
+// public  - inside and outside contract
+// external - only from outside contract
+```
