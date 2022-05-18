@@ -1291,3 +1291,49 @@ pragma solidity ^0.8.14;
 // public  - inside and outside contract
 // external - only from outside contract
 ```
+
+#### Example-30
+
+> Using receive() and fallback() 
+
+```solidity
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.14;
+
+/*
+Fallback executed when 
+- function doesn't exist
+- directly send ETH 
+*/
+
+/*
+Difference between fallback() and receive()
+Ether is sent to contract
+            |
+    Is msg.data empty?
+            / \
+        yes     no
+        /        \
+receive() exist?   fallback()
+        / \
+      yes  no
+      /     \
+receive()   fallback()
+*/
+
+// this contract can receive ETH
+// You can send ETH directly to this contract
+// Or have another contract sending ETH to this contract
+// If the receive() funciton does not exist, even though msg.data is empty, fallback() function will executed.
+contract Fallback {
+    event Log(string func, address sender, uint value, bytes data);
+
+    fallback() external payable {
+        emit Log("fallback", msg.sender, msg.value, msg.data);
+    }
+    receive() external payable {
+        emit Log("receive", msg.sender, msg.value, "");
+
+    }
+}
+```
