@@ -1339,7 +1339,7 @@ contract Fallback {
 ```
 
 #### Example-30
-> Sending ETH tutorial
+> Sending ETH from a contract to another contract
 
 ```solidity
 // SPDX-License-Identifier: MIT
