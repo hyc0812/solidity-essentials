@@ -1393,3 +1393,35 @@ contract EthReceiver {
     }
 }
 ```
+
+#### Example-31
+> ETH wallet 
+> Everyone can send ETH to this contract
+> Only the owner of the contract can withdraw ETH from this contract
+
+```solidity
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.14;
+
+// every one can send ETH to this contract
+// only the owner can withdraw ETH from this contract
+
+contract EtherWallet {
+    address payable public owner;
+    modifier onlyOwner {
+        require(msg.sender == owner, "caller is not owner");
+        _;
+    }
+    constructor() {
+        owner = payable(msg.sender);
+    }
+    receive() external payable {}
+
+    function withdraw(uint _amount) external onlyOwner{
+        payable(msg.sender).transfer(_amount);
+    }
+    function getBalance() external view returns (uint) {
+        return address(this).balance;
+    }
+}
+```
