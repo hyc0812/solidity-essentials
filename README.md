@@ -1337,3 +1337,59 @@ contract Fallback {
     }
 }
 ```
+
+#### Example-30
+> Sending ETH tutorial
+
+```solidity
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.14;
+
+// 3 ways to send ETH
+// transfer - 2300 gas, reverts
+// send - 2300 gas, returns bool
+// call - all gas, returns bool and data;
+
+contract SendEther {
+    // enable to receive Ether
+    constructor () payable {}
+    receive() external payable {}
+    //send 2300 gas to the contract to execute some code		"event": "Log",
+    // "args": {
+    // 	"0": "123",
+    // 	"1": "2260",
+    // 	"amount": "123",
+    // 	"gas": "2260"
+    function sendViaTransfer(address payable _to) external payable {
+        _to.transfer(msg.value);
+    }
+    // "args": {
+	// 		"0": "123",
+	// 		"1": "2260",
+	// 		"amount": "123",
+	// 		"gas": "2260"
+	// 	}
+    function sendViaSend(address payable _to) external payable {
+        bool sent = _to.send(msg.value);
+        require(sent, "send failed!");
+    }
+    // "args": {
+	// 		"0": "123",
+	// 		"1": "6521",
+	// 		"amount": "123",
+	// 		"gas": "6521"       // receiving more gas than the other two
+	// 	}
+    function sendViaCall(address payable _to) external payable {
+        (bool success, ) = _to.call{value:msg.value}("");
+        require(success, "call failed");
+    }
+}
+
+// from the contract above, we will be able to send ETH to the contract below
+contract EthReceiver {
+    event Log(uint amount, uint gas);
+    receive() external payable {
+        emit Log(msg.value, gasleft());
+    }
+}
+```
