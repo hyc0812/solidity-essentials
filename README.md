@@ -1,6 +1,6 @@
 # Solidity-Baby Steps...
 
-Learning one-by-one is recommended.
+Learning and typing one-by-one is recommended.
 
 References recommended: 
 
