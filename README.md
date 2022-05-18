@@ -1,5 +1,10 @@
 # Solidity-Baby Steps...
 
+Learning one-by-one is recommended.
+References recommended: 
+[examples](https://solidity-by-example.org/)
+[videoResource](https://www.youtube.com/watch?v=6aQErpWPLbk&t=2s)
+
 
 #### Example-1
 
