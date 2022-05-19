@@ -1476,3 +1476,48 @@ contract TestContract {
     }
 }
 ```
+
+
+#### Example-32
+
+> Using interface to call pre-defined functions
+
+> Interface definition and caller contract
+
+```solidity
+// SPDX-License-Identifier:MIT
+pragma solidity ^0.8.14;
+// Need to pay attention to the first function
+// which can be called and return the value of 
+//state variable count in the original contract 
+//which may be not accessible
+interface ICounter {
+    function count() external view returns (uint); // need to pay more attention
+    function inc() external;
+}
+
+contract CallInterface {
+    uint public count;
+    function examples(address _counter) external {
+        ICounter(_counter).inc();
+        count = ICounter(_counter).count();
+    }
+}
+```
+> original contract which may be not accessible 
+```solidity
+// SPDX-License-Identifier:MIT
+
+pragma solidity ^0.8.14;
+
+contract Counter {
+    uint public count;
+
+    function inc() external {
+        count += 1;
+    }
+    function dec() external {
+        count -= 1;
+    }
+}
+```
