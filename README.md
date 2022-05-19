@@ -1555,3 +1555,49 @@ contract AccountFactory {
 // video resource:
 // https://www.youtube.com/watch?v=J2Wp2SHq1Qo&list=PLO5VPQH6OWdVQwpQfw9rZ67O6Pjfo6q-p&index=45
 ```
+
+#### Example-34
+
+> How to define a library and use it in other contract.
+
+```solidity
+// SPDX-License-Identifier:MIT
+pragma solidity ^0.8.14;
+// define a library
+library Math {
+    function max(uint x, uint y) internal pure returns (uint) {
+        return x >= y ? x : y;
+    }
+}
+// call a library 
+contract Test {
+    function testMax(uint x, uint y) external pure returns (uint) {
+        return Math.max(x, y);
+    }
+}
+// ---------Another example--------
+
+library FindElement{
+    function findElement(uint[] storage _arr, uint _elem) internal view returns (uint) {
+        for(uint i = 0; i < _arr.length; i++) {
+            if (_arr[i] == _elem) {
+                return i;
+            }
+        }
+        revert("Not Found!");
+    }
+}
+
+contract TestArray {
+    // uint[] datatype can use this library more convenient by using .findElement. 
+    // See testFindRivsed
+    using FindElement for uint[];
+    uint[] public arr = [1,2,3,4];
+    function testFind(uint _elem) external view returns (uint index) {
+        index = FindElement.findElement(arr, _elem);
+    }
+    function testFindRivsed(uint _elem) external view returns (uint index) {
+        index = arr.findElement(_elem);
+    }
+}
+```
