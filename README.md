@@ -1521,3 +1521,37 @@ contract Counter {
     }
 }
 ```
+#### Example-33
+
+> How to create a contract with another contract using Solidity
+```solidity
+// SPDX-License-Identifier:MIT
+pragma solidity ^0.8.14;
+
+contract Account {
+    address public bank;
+    address public owner;
+    constructor (address _owner) payable {
+        bank = msg.sender;
+        owner = _owner;
+    }
+}
+// deploying another contract using solidity
+// usually when you see a contract is deploying another contract, such contract is named XxxFactory.
+// since this contract deploys Account contract, that is why we name this contract as AccountFactory.
+// a factory is creating new staff, likewise this factory is creating new contact and in this case, it created new account contract.
+
+// where is this new contract deployed?
+// Since we stored the newly created contract account into array Account, so I can get the address by visit accounts[0].
+// and this is the address of the contract that is newly deployed.
+contract AccountFactory {
+    Account[] public accounts;
+    function createAccount(address _owner) external payable {
+        Account account = new Account{value: 111}(_owner);
+        accounts.push(account);
+    }
+}
+
+// video resource:
+// https://www.youtube.com/watch?v=J2Wp2SHq1Qo&list=PLO5VPQH6OWdVQwpQfw9rZ67O6Pjfo6q-p&index=45
+```
