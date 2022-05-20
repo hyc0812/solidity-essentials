@@ -1,6 +1,8 @@
 # Solidity-Baby Steps...
 
-Learning and typing one-by-one is recommended.
+The best path for earning Solidity is to approach examples. 
+
+Here are baby examples. Typing one-by-one is recommended.
 
 References recommended: 
 
