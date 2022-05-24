@@ -1694,3 +1694,40 @@ contract Helper {
     }
 }
 ```
+
+#### Example-37
+
+```solidity
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.13;
+/*
+This contract demostrates that every accounts can deposit ETH to this contract, but only the owner of 
+the contract can withdraw ETH from this contact and delete this contract.
+*/
+
+contract PiggyBank {
+    event Deposit(uint amount);
+    event Withdraw(uint amount);
+    address public owner = msg.sender;
+
+    modifier onlyOwner() {
+        require(msg.sender == owner, "not owner");
+        _;
+    }
+
+    receive() external payable {
+        emit Deposit(msg.value);
+    }
+    fallback() external payable{}
+
+    function withdraw() external onlyOwner{
+        require(msg.sender == owner, "not owner");
+        emit Withdraw(address(this).balance);
+        selfdestruct(payable(msg.sender));
+    }
+    function contractBalance() external view returns (uint) {
+        return address(this).balance;
+    }
+
+}
+```
