@@ -1644,3 +1644,52 @@ contract AccessControl {
     }
 }
 ```
+
+#### Example-36
+[DEV Blog Link](https://dev.to/yongchanghe/tutorial-delete-a-contract-using-kill-5a69-temp-slug-7306883?preview=4072e945a0132cdac0b36390bfc825449e2b57fe278cf08ed2d1ef6a052c4d430a989783a23735967ba8c8c46cb09cc80aab564f28c67d14c635c7a0)
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.13;
+/* 
+There is a funciton called selfdestruct in solidity. 
+When you call this funciton, you will delete a contract from blockchain, 
+and the function also force send ETH to any address specified. Even if 
+the contract doesn't have a fallback function.
+*/
+// e.g. there is 1 ETH logged in this contract. 
+// When we call the function kill(), it will execute selfdesctruct(), and this will delete the contract from blockchain.
+// Since the contract saves 1 ETH, the contract will send 1 ETH to msg.sender.
+// msg.sender is a contract without a fallback function.
+/*
+This contract will be deleted when we call the function kill().
+When the contract is deleted, we will not be able to call the function testCall().
+*/
+contract Kill {
+    constructor () payable {}
+
+    fallback() external payable {}
+
+    receive() external payable {}
+
+    function kill () external {
+        selfdestruct(payable(msg.sender));
+    }
+    function testCall() external pure returns (string memory) {
+        return "Tst called";
+    }
+    function contractBal() external view returns (uint) {
+        return address(this).balance;
+    }
+    function ownerBal() external view returns (uint) {
+        return msg.sender.balance;
+    }
+}
+
+contract Helper {
+    function getBalance() external view returns (uint) {
+        return address(this).balance;
+    }
+    function kill(Kill _kill) external {
+        _kill.kill();
+    }
+}
+```
