@@ -1646,7 +1646,8 @@ contract AccessControl {
 ```
 
 #### Example-36
-[DEV Blog Link](https://dev.to/yongchanghe/tutorial-delete-a-contract-using-kill-5a69-temp-slug-7306883?preview=4072e945a0132cdac0b36390bfc825449e2b57fe278cf08ed2d1ef6a052c4d430a989783a23735967ba8c8c46cb09cc80aab564f28c67d14c635c7a0)
+```solidity
+// [DEV Blog Link](https://dev.to/yongchanghe/tutorial-delete-a-contract-using-kill-5a69-temp-slug-7306883?preview=4072e945a0132cdac0b36390bfc825449e2b57fe278cf08ed2d1ef6a052c4d430a989783a23735967ba8c8c46cb09cc80aab564f28c67d14c635c7a0)
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.13;
 /* 
