@@ -1799,6 +1799,7 @@ contract ERC20 is IERC20 {
 
 #### Example-39
 
+> For now I don't know how to test it in Remix. Could any body help?
 > Multi signature wallet model
 
 ```solidity
