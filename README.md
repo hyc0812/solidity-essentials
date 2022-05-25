@@ -1798,6 +1798,9 @@ contract ERC20 is IERC20 {
 
 
 #### Example-39
+
+> Multi signature wallet model
+
 ```solidity
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.14;
