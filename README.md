@@ -1894,3 +1894,36 @@ contract MultiSigWallet {
     }
 }
 ```
+
+#### Example-40
+> Explain passing message
+
+```solidity
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.14;
+
+// What is the message that is being passed when we use a contract calls another contract?
+
+contract FunctionSelector {
+    function getSelector(string calldata _func) external pure returns (bytes4) {
+        return bytes4(keccak256(bytes(_func)));
+    }
+}
+// input the following parameter in function getSelector() when deploy and test FunctionSelector:
+//  "transfer(address,uint256)"
+
+contract Receiver {
+    // we can see the data that has been sent by call this event using emit
+    event Log(bytes data);
+
+    function transfer(address _to, uint _amount) external {
+        emit Log(msg.data); 
+    }
+}
+// will get the following data for "args": "data":
+        // 0xa9059cbb
+        // 0000000000000000000000005b38da6a701c568545dcfcb03fcb875f56beddc4 is correspondent to the address _to that is address(0)
+        // 000000000000000000000000000000000000000000000000000000000000000b is correspondent to the uint _amount 11
+        // https://www.rapidtables.com/convert/number/hex-to-decimal.html hex to decimal converter
+	
+	```
