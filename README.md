@@ -1926,4 +1926,4 @@ contract Receiver {
         // 000000000000000000000000000000000000000000000000000000000000000b is correspondent to the uint _amount 11
         // https://www.rapidtables.com/convert/number/hex-to-decimal.html hex to decimal converter
 	
-	```
+```
