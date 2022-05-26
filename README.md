@@ -6,6 +6,8 @@ Here are baby examples. Typing one-by-one is recommended.
 
 References: 
 
+[MyBlog](https://dev.to/yongchanghe/tutorial-play-with-an-auction-demo-based-on-erc721-383c-temp-slug-5135126?preview=2190ea084806f9168db27f33e5508ed9eded5266cc67fc86a74267a1a0e3fa5dbc451ec8a37fddd8efe839e1f58fa7e5ec188af3cf9e367acf1fce9e) explanation for using EnglishAuction and testing.
+
 [examples](https://solidity-by-example.org/)
 
 [videoResource](https://www.youtube.com/watch?v=6aQErpWPLbk&t=2s)
