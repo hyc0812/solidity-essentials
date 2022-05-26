@@ -4,7 +4,7 @@ The best path for earning Solidity is to approach examples.
 
 Here are baby examples. Typing one-by-one is recommended.
 
-References recommended: 
+References: 
 
 [examples](https://solidity-by-example.org/)
 
