@@ -2462,3 +2462,39 @@ contract AbiDecode {
     */
 }
 ```
+
+#### Example-47
+
+> How to reduce the gas use ?
+
+> original source code link: [HERE](https://www.youtube.com/watch?v=4r20M9Fr8lY&list=PLO5VPQH6OWdVQwpQfw9rZ67O6Pjfo6q-p&index=63)
+
+```solidity
+// SPDX-License-Identifier: GPL-3.0
+pragma solidity >=0.7.0 <0.9.0;
+
+contract GasGolf {
+    uint public total;
+    function sumIfEvenAndLessThan99(uint[] calldata _arr) external {
+        uint _total = total;
+        uint len = _arr.length;
+        for (uint i; i < len; ++i) {
+            uint num = _arr[i];
+            if (num % 2 == 0 && num < 99) {
+                _total += num;
+            }
+        }
+        total = _total;
+    }
+    // input [1,2,3,4,5,100]
+    // output 
+}
+// start 50530 gas
+// use calldata 48785 gas
+// load state variables to memory 48574 gas
+// use short circuit 48256 gas
+// loop increments change from i++ to ++i 48226 gas
+// cache array length by adding local variable len 48191 gas
+// load array elements to memory 48029 gas 
+```
+
