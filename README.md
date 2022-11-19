@@ -2527,3 +2527,89 @@ contract WETH is ERC20 {
 }
 ```
 
+
+
+#### Example - 49
+```
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.13;
+
+contract Payable {
+
+    // set a savings goal
+    uint public savingsGoal = 20;
+
+    address payable public owner;
+
+    // define a struct for saving the depositors and how much they have deposited.
+    struct Depositor {
+        address payable walletAddress;
+        uint depoist;
+    }     
+
+    // save depositors information in a struct
+    Depositor[] private depositors;       
+
+    // access control 
+    modifier onlyOwner() {
+        require(msg.sender == owner, "not owner");
+        _;
+    }
+
+    receive() external payable {}
+    fallback() external payable {}
+    constructor() payable {
+        owner = payable(msg.sender);
+    }
+
+    // create an event to emit once you reach the savings goal
+    event ReachedSavingGoal( address indexed sender, uint amount);
+
+
+    // create an event to nofity who sent the ETH and the value
+    event Deposit(address indexed sender, uint amount);     
+    
+
+    // Function to receive ETH
+    function depositToBank() public payable {
+        addDepositor(payable(msg.sender), msg.value);
+        // Log who send the ETH and the value
+        emit Deposit(msg.sender, msg.value);
+        // check the balance to know 
+        if (getBalance() > savingsGoal) {
+            emit ReachedSavingGoal(msg.sender, msg.value);
+        }
+    }
+
+    // Function to return the balance of the contract
+    function getBalance() public view returns (uint) {
+        return address(this).balance / 1e18;
+    }
+
+    // only the owner can withdraw the ETH
+    function emptyTheBank() public onlyOwner{
+        uint amount = address(this).balance;
+        (bool success, ) = owner.call{value: amount}("");
+        require(success, "Failed to send Ether");
+    }
+
+    // add depositors in to the struct
+    function addDepositor(address payable walletAddress, uint depoist) private {
+        depositors.push(Depositor(walletAddress, depoist));
+    }
+
+    // calculate the total deposit for a specified depositor
+    function getDepositsValue(address payable walletAddress) view public returns (uint) {
+        uint totalDeposit = 0;
+        for (uint i = 0; i < depositors.length; i++) {
+             if(depositors[i].walletAddress == walletAddress) {
+                totalDeposit += depositors[i].depoist;
+            }
+        }
+        return totalDeposit / 1e18;
+    }
+}
+
+```
+
+
