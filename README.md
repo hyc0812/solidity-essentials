@@ -3,7 +3,7 @@
 The best path for earning Solidity is to approach examples. 
 
 Here are baby examples. Typing one-by-one is recommended.
-
+ 
 References: 
 
 [MyBlog](https://dev.to/yongchanghe/tutorial-play-with-an-auction-demo-based-on-erc721-3kpb) explanation for using EnglishAuction and testing.
